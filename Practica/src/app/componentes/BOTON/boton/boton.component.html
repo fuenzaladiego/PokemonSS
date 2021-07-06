@@ -1,0 +1,9 @@
+<ng-container *ngIf="!isLogged; else logeado">
+    <button (click)="isLogged=true" >Iniciar sesion</button>
+    <button >Cerrar sesion</button>
+</ng-container>
+<ng-template #logeado>
+    <button (click)="isLogged=false">Cerrar Sesion</button>
+    <button>Perfil</button>
+    <button>Opciones</button>
+</ng-template>

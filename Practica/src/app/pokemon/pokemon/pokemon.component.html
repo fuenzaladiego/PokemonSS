@@ -1,12 +1,17 @@
+<!--
+
 <div>
     <h1>Pokemon</h1>
     <input type="text" [(ngModel)]="pokeIdentifier">
 
     <button (click)="search()">Buscar</button>
 </div>
+-->
+<button (click) ="showPokemons()">Mostrar Pokemones</button>
+<div *ngIf="pokemon$ | async as pokemonS">
 
-<div *ngIf="pokemon$ | async as pokemon">
-    <img src="{{ pokemon.sprites.front_default }}" alt="Foto Pokemon">
-
-    <h2>Nombre de pokemon : {{ pokemon.species.name }}</h2>
+    <ul>
+        <li *ngFor="let pokemon of pokemonS.results">Nombre de pokemon : {{ pokemon.name }}</li>
+    </ul>
+    
 </div>  

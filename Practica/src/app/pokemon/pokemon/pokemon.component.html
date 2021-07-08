@@ -7,11 +7,12 @@
     <button (click)="search()">Buscar</button>
 </div>
 -->
-<button (click) ="showPokemons()">Mostrar Pokemones</button>
-<div *ngIf="pokemon$ | async as pokemonS">
+
+<button></button>
+<div >
 
     <ul>
-        <li *ngFor="let pokemon of pokemonS.results">Nombre de pokemon : {{ pokemon.name }}</li>
+        <li *ngFor="let e of pokemonLinks">Nombre pokemon : {{e.species.name}}<br>Tipo : {{e.types[0].type.name}}<br>Foto : <img src="{{e.sprites.front_default}}" alt="No existe u.u"> </li>    
     </ul>
     
 </div>  

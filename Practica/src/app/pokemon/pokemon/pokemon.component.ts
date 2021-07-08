@@ -1,8 +1,12 @@
+import { GetPokeService } from './../../services/get-poke.service';
 import { PokemonService } from './../../services/pokemon.service';
 import { Component, OnInit } from '@angular/core';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
-import { Pokemon } from '../../others/interfazPokemones'
+import { pokemonList } from '../../others/interfazPokemones';
+import { Pokemon } from 'src/app/others/pokemon';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+
 
 
 @Component({
@@ -12,36 +16,48 @@ import { Observable } from 'rxjs';
 })
 export class PokemonComponent implements OnInit {
 
-  /*
-  pokeAux: Pokemon = [{
-    count: 10,
-    next: "string",
-    previous: "string",
-    results: [{
-      name: "string",
-      url: "string"
-    }]
-  }]*/
-  /*
-  pokeIdentifier: string = ""
-  urlImage: string = ""
-  pokemonType: string = ""
-  pokemonNumber: number = 1
-  */
-  //pokemonList: [Pokemon] = [this.pokeAux]
+  
    
+  pokemonList$ = new Observable<pokemonList | null>();
+
   pokemon$ = new Observable<Pokemon | null>();
-
-
-  constructor(private PokemonService : PokemonService) { }
+  pokemonLinks: Pokemon[] = []
+  constructor( private PokemonService : PokemonService, private GetPokeService: GetPokeService) { }
 
   ngOnInit(): void {
+    this.getPokemonList()
+    this.fillPokemonLinks()
+  
   }
-  showPokemons() {
+  async fillPokemonLinks() {
+    await this.pokemonList$.pipe(tap(data => {
+      if (data) {
+        data.results.forEach(e => {
+          this.getPokemon(e.name)
+          this.pokemon$.pipe(tap(f => {
+            if (f) {
+              this.pokemonLinks.push(f)
+
+            }
+          })).subscribe()
+        })
+      }
+    })).subscribe()
     
-    this.pokemon$ = this.PokemonService.getPokemon() // Observables terminan con $ ej pokemon$
-    console.log(this.pokemon$)
+    
   }
+  
+
+  getPokemon(name: string):any {
+    this.pokemon$ = this.GetPokeService.getPokemon(name)
+  }
+
+  getPokemonList() {
+    // Observables terminan con $ ej pokemon$
+    this.pokemonList$ = this.PokemonService.getPokemonList()
+    //console.log(this.pokemonList$)
+  }
+
 
 
 }

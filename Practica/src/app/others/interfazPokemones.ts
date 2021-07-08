@@ -1,4 +1,4 @@
-export interface Pokemon{
+export interface pokemonList{
   count: number,
   next: string,
   previous: string,
@@ -6,6 +6,5 @@ export interface Pokemon{
     name: string,
     url: string
   }]
-
 }
 

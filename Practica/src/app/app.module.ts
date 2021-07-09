@@ -7,8 +7,9 @@ import { BotonComponent } from './componentes/BOTON/boton/boton.component';
 import { EventosComponent } from './WEBADAS/eventos/eventos.component';
 import { PokemonComponent } from './pokemon/pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
-import { BotonesPokemonComponent } from './src/app/componentes/botones-pokemon/botones-pokemon.component';
-import { PokebotonComponent } from './componentes/pokeboton/pokeboton.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { NamefilterPipe } from './pipes/namefilter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -16,8 +17,9 @@ import { PokebotonComponent } from './componentes/pokeboton/pokeboton.component'
     BotonComponent,
     EventosComponent,
     PokemonComponent,
-    BotonesPokemonComponent,
-    PokebotonComponent
+    FilterPipe,
+    NamefilterPipe,
+    
   ],
   imports: [
     BrowserModule,

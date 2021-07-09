@@ -6,29 +6,48 @@ import { pokemonList } from '../../others/interfazPokemones';
 import { Pokemon } from 'src/app/others/pokemon';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import { NamefilterPipe } from 'src/app/pipes/namefilter.pipe';
 
 
 
 @Component({
   selector: 'pokemon',
   templateUrl: './pokemon.component.html',
-  styleUrls: ['./pokemon.component.css']
+  styleUrls: ['./pokemon.component.css'],
 })
 export class PokemonComponent implements OnInit {
 
-  
-   
   pokemonList$ = new Observable<pokemonList | null>();
-
   pokemon$ = new Observable<Pokemon | null>();
   pokemonLinks: Pokemon[] = []
+  option: string = "all"
+  name: string = ""
+  pokemonAux: Pokemon = {
+    species: { name: "string" },
+    sprites: { front_default: "string" },
+    types: [{type :{name: "string"}}],
+    id: -5
+  }
+
   constructor( private PokemonService : PokemonService, private GetPokeService: GetPokeService) { }
 
   ngOnInit(): void {
     this.getPokemonList()
     this.fillPokemonLinks()
-  
+    
   }
+  findPokemon(name: string) {
+    if (this.pokemonLinks) {
+      this.pokemonLinks.forEach(e => {
+        if (e.species.name === name) {
+          this.pokemonAux = e;
+        }
+      })
+    }  
+  }
+
+
   async fillPokemonLinks() {
     await this.pokemonList$.pipe(tap(data => {
       if (data) {
@@ -43,19 +62,15 @@ export class PokemonComponent implements OnInit {
         })
       }
     })).subscribe()
-    
-    
   }
   
+
 
   getPokemon(name: string):any {
     this.pokemon$ = this.GetPokeService.getPokemon(name)
   }
-
   getPokemonList() {
-    // Observables terminan con $ ej pokemon$
     this.pokemonList$ = this.PokemonService.getPokemonList()
-    //console.log(this.pokemonList$)
   }
 
 

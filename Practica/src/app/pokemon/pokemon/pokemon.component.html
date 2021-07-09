@@ -1,18 +1,32 @@
-<!--
-
-<div>
-    <h1>Pokemon</h1>
-    <input type="text" [(ngModel)]="pokeIdentifier">
-
-    <button (click)="search()">Buscar</button>
-</div>
--->
-
-<button></button>
-<div >
-
+<h2>Buscar pokemon</h2>
+<input type="text" [(ngModel)]="name"><br>
+<ng-container *ngIf="name !=''; else filter">
+    <button (click)="findPokemon(name)">Buscar</button>
+    <button (click)="name =''">Mostrar todos</button>
     <ul>
-        <li *ngFor="let e of pokemonLinks">Nombre pokemon : {{e.species.name}}<br>Tipo : {{e.types[0].type.name}}<br>Foto : <img src="{{e.sprites.front_default}}" alt="No existe u.u"> </li>    
+        <li>Nombre pokemon : {{pokemonAux.species.name}}<br>Tipo : {{pokemonAux.types[0].type.name}}<br>Foto : <img src="{{pokemonAux.sprites.front_default}}" alt="No existe u.u"> </li>    
     </ul>
-    
-</div>  
+</ng-container>
+
+<ng-template #filter>
+    <button (click)="option='water'">Water</button>
+    <button (click)="option='grass'">Grass</button>
+    <button (click)="option='fire'">Fire</button>
+    <button (click)="option='electric'">Electric</button>
+    <button (click)="option='bug'">Bug</button>
+    <button (click)="option='dragon'">Dragon</button>
+    <button (click)="option='rock'">Rock</button>
+    <button (click)="option='Normal'">Normal</button>
+    <button (click)="option='fighting'">Fighting</button>
+    <button (click)="option='poison'">Poison</button>
+    <button (click)="option='psychic'">Psychic</button>
+    <button (click)="option='all'">All</button>
+
+
+    <div>
+        <ul>
+            <li *ngFor="let e of pokemonLinks | filter:option">Nombre pokemon : {{e.species.name}}<br>Tipo : {{e.types[0].type.name}}<br>Foto : <img src="{{e.sprites.front_default}}" alt="No existe u.u"> </li>    
+        </ul>
+    </div>
+</ng-template>
+

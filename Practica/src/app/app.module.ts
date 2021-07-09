@@ -7,13 +7,17 @@ import { BotonComponent } from './componentes/BOTON/boton/boton.component';
 import { EventosComponent } from './WEBADAS/eventos/eventos.component';
 import { PokemonComponent } from './pokemon/pokemon/pokemon.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BotonesPokemonComponent } from './src/app/componentes/botones-pokemon/botones-pokemon.component';
+import { PokebotonComponent } from './componentes/pokeboton/pokeboton.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BotonComponent,
     EventosComponent,
-    PokemonComponent
+    PokemonComponent,
+    BotonesPokemonComponent,
+    PokebotonComponent
   ],
   imports: [
     BrowserModule,
